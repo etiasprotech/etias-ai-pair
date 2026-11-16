@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#25D366">
+<title>ETIAS-AI | Pair Code</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#25D366;--cyan:#00e5ff;--purple:#a855f7;--pink:#ec4899;--yellow:#facc15;--gold:#ffd700;--text:#eafff0;--muted:#9aa9a0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;overflow-x:hidden;background:#020403;color:var(--text);
+  font-family:"Montserrat",sans-serif;position:relative;
+  transition:background 1.2s ease, filter 1.2s ease;
+}
+/* ===== PHASE BACKGROUNDS ===== */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-5;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(37,211,102,.28) 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(0,229,255,.18) 0%, transparent 45%),
+    linear-gradient(135deg,#020403,#04160a,#02181a,#020403);
+  background-size:200% 200%;
+  animation:bgFlow 18s ease-in-out infinite alternate;
+  transition:all 1s ease;
+}
+@keyframes bgFlow{0%{background-position:0% 0%}50%{background-position:50% 50%}100%{background-position:100% 100%}}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;
+  background:
+    radial-gradient(circle 120px at 15% 25%, rgba(37,211,102,.30), transparent 70%),
+    radial-gradient(circle 100px at 85% 65%, rgba(0,229,255,.25), transparent 70%);
+  animation:orbFloat 10s ease-in-out infinite alternate;filter:blur(2px);
+}
+@keyframes orbFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,-30px) scale(1.15)}}
+
+/* PHASE 2 - CODE GENERATED -> CYAN / PURPLE */
+body.phase-code::before{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,229,255,.38) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(168,85,247,.35) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(0,229,255,.20) 0%, transparent 50%),
+    linear-gradient(135deg,#020403,#031a2a,#150a2e,#020403);
+  animation:bgFlow 8s ease-in-out infinite alternate, hueShift 6s linear infinite;
+}
+body.phase-code::after{
+  background:
+    radial-gradient(circle 130px at 15% 25%, rgba(0,229,255,.45), transparent 70%),
+    radial-gradient(circle 110px at 85% 65%, rgba(168,85,247,.40), transparent 70%);
+}
+@keyframes hueShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+
+/* PHASE 3 - WAITING SESSION -> PINK / ORANGE */
+body.phase-waiting::before{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(236,72,153,.38) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(250,204,21,.28) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(168,85,247,.28) 0%, transparent 50%),
+    linear-gradient(135deg,#020403,#1a0a15,#1a1405,#020403);
+  animation:bgFlow 6s ease-in-out infinite alternate, hueShift 5s linear infinite;
+}
+body.phase-waiting::after{
+  background:
+    radial-gradient(circle 130px at 15% 25%, rgba(236,72,153,.45), transparent 70%),
+    radial-gradient(circle 110px at 85% 65%, rgba(250,204,21,.35), transparent 70%);
+}
+
+/* PHASE 4 - SUCCESS -> GOLD / RAINBOW */
+body.phase-success::before{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,215,0,.40) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(37,211,102,.38) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(0,229,255,.32) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(236,72,153,.30) 0%, transparent 50%),
+    linear-gradient(135deg,#020403,#1a1405,#04160a,#020403);
+  animation:bgFlow 5s ease-in-out infinite alternate, hueShift 4s linear infinite;
+}
+body.phase-success::after{
+  background:
+    radial-gradient(circle 140px at 15% 25%, rgba(255,215,0,.50), transparent 70%),
+    radial-gradient(circle 120px at 85% 65%, rgba(37,211,102,.45), transparent 70%),
+    radial-gradient(circle 100px at 50% 90%, rgba(0,229,255,.40), transparent 70%);
+}
+
+#particles-js{position:fixed;inset:0;z-index:-3}
+.cyber-grid{position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(rgba(37,211,102,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(37,211,102,.06) 1px, transparent 1px);background-size:50px 50px;animation:gridMove 35s linear infinite, gridHue 12s linear infinite}
+@keyframes gridMove{from{transform:translate(0,0)}to{transform:translate(-50px,-50px)}}
+@keyframes gridHue{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+@keyframes gradientSlide{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+@keyframes shineText{to{background-position:300% center}}
+@keyframes rotate{to{transform:rotate(360deg)}}
+@keyframes rotateRev{to{transform:rotate(-360deg)}}
+@keyframes floating{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+@keyframes pillFlow{0%{background-position:0% 0%}50%{background-position:100% 100%}100%{background-position:0% 0%}}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;width:100%;height:60px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:rgba(2,8,4,.94);backdrop-filter:blur(14px);border-bottom:2px solid transparent;border-image:linear-gradient(90deg,#25D366,#00e5ff,#a855f7,#ec4899,#25D366) 1;animation:borderFlow 6s linear infinite;box-shadow:0 0 25px rgba(37,211,102,.35)}
+@keyframes borderFlow{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+.header-left{display:flex;align-items:center;gap:11px}
+.header-logo{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid transparent;background:linear-gradient(#000,#000) padding-box, linear-gradient(90deg,#25D366,#00e5ff,#ec4899,#25D366) border-box;background-size:300% 100%;animation:gradientSlide 4s linear infinite;box-shadow:0 0 15px rgba(37,211,102,.6)}
+.logo-text{font-family:"Orbitron",sans-serif;font-weight:900;letter-spacing:2px;font-size:.92rem;background:linear-gradient(90deg,#25D366,#00e5ff,#fff,#ec4899,#25D366);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+.system-status{display:flex;align-items:center;gap:8px;font-family:"Orbitron",sans-serif;font-size:.65rem;font-weight:800;letter-spacing:1px;padding:7px 13px;border-radius:20px;background:linear-gradient(135deg, rgba(37,211,102,.15), rgba(0,229,255,.15));border:1px solid rgba(37,211,102,.5)}
+.system-dot{width:9px;height:9px;border-radius:50%;background:#00ff66;box-shadow:0 0 8px #00ff66,0 0 16px #00ff66;animation:pulse 1.4s infinite}
+#phaseLabel{font-family:"Orbitron",sans-serif;font-size:.62rem;letter-spacing:1px;color:#ffd27a}
+
+/* MAIN */
+main{width:min(480px,94%);margin:0 auto;padding:92px 0 30px;display:flex;flex-direction:column;gap:18px}
+.hero{text-align:center;padding:6px 0}
+.bot-ring{width:145px;height:145px;margin:0 auto 14px;position:relative;display:flex;align-items:center;justify-content:center;animation:floating 5s ease-in-out infinite}
+.bot-ring::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,#25D366,#00e5ff,#a855f7,#ec4899,#facc15,#25D366);animation:rotate 3s linear infinite;box-shadow:0 0 25px rgba(37,211,102,.7)}
+.bot-ring::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#020403}
+.bot-image{width:100%;height:100%;position:relative;z-index:2;object-fit:cover;border-radius:50%;border:3px solid var(--green);background:#050805}
+.hero-title{font-family:"Orbitron",sans-serif;font-size:clamp(1.6rem,6vw,2.1rem);font-weight:900;letter-spacing:3px;background:linear-gradient(90deg,#25D366,#00e5ff,#fff,#a855f7,#ec4899,#facc15,#25D366);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 3s linear infinite;filter:drop-shadow(0 0 18px rgba(37,211,102,.45))}
+.hero-subtitle{margin-top:5px;font-family:"Orbitron",sans-serif;font-size:.70rem;letter-spacing:4px;color:#9aa9a0}
+.stats{display:flex;gap:10px}
+.stat-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 10px;border-radius:30px;font-family:"Orbitron",sans-serif;font-size:.78rem;background:linear-gradient(135deg, rgba(37,211,102,.15), rgba(0,229,255,.15), rgba(168,85,247,.15));background-size:200% 200%;animation:pillFlow 4s ease-in-out infinite;border:1px solid rgba(37,211,102,.5)}
+.stat-pill i{color:var(--green)}
+.live-dot{width:9px;height:9px;border-radius:50%;background:#00ff66;box-shadow:0 0 8px #00ff66;animation:pulse 1.4s infinite}
+
+/* PAIR CARD */
+.pair-card{padding:26px 20px;border-radius:20px;background:rgba(7,18,12,.92);backdrop-filter:blur(14px);border:1px solid rgba(37,211,102,.65);position:relative;overflow:hidden;box-shadow:0 0 35px rgba(37,211,102,.18);transition:box-shadow .8s, border-color .8s}
+.pair-card::before{content:"";position:absolute;inset:0;border-radius:20px;padding:1.5px;background:linear-gradient(90deg,#25D366,#00e5ff,#a855f7,#ec4899,#facc15,#25D366);background-size:300% 100%;animation:gradientSlide 4s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+body.phase-code .pair-card{box-shadow:0 0 35px rgba(0,229,255,.45),0 0 60px rgba(168,85,247,.25)}
+body.phase-waiting .pair-card{box-shadow:0 0 35px rgba(236,72,153,.45),0 0 60px rgba(250,204,21,.25)}
+body.phase-success .pair-card{box-shadow:0 0 35px rgba(255,215,0,.55),0 0 70px rgba(37,211,102,.35)}
+.card-title{text-align:center;font-family:"Orbitron",sans-serif;font-size:1.45rem;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,#25D366,#00e5ff,#ec4899,#25D366);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 3s linear infinite}
+.card-version{text-align:center;margin:8px 0 12px}
+.card-version span{display:inline-block;padding:4px 13px;border-radius:20px;background:linear-gradient(90deg,#25D366,#00e5ff,#a855f7,#ec4899,#25D366);background-size:300% 100%;animation:gradientSlide 4s linear infinite;color:#001408;font-family:"Orbitron",sans-serif;font-size:.65rem;font-weight:900;letter-spacing:2px}
+.card-description{text-align:center;color:var(--muted);font-size:.90rem;line-height:1.6}
+.example{text-align:center;margin:11px 0;font-size:.84rem;color:#9aa9a0}
+.example-code{color:#fff;font-weight:700;padding:3px 10px;border-radius:8px;background:linear-gradient(90deg, rgba(37,211,102,.2), rgba(0,229,255,.2));border:1px solid rgba(37,211,102,.4)}
+
+/* INPUT */
+.input-wrapper{margin:14px 0 12px;display:flex;border-radius:12px;padding:2px;background:linear-gradient(90deg,#25D366,#00e5ff,#a855f7,#ec4899,#25D366);background-size:300% 100%;animation:gradientSlide 4s linear infinite}
+.input-wrapper input{width:100%;background:#020403;border:none;outline:none;color:#fff;padding:14px;border-radius:10px;font-size:1rem;letter-spacing:1px;text-align:center;font-weight:600}
+.input-wrapper input::placeholder{color:#555}
+#submit{width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;font-family:"Orbitron",sans-serif;font-weight:900;letter-spacing:1.5px;font-size:.92rem;color:#001408;background:linear-gradient(90deg,#25D366,#00e5ff,#a855f7,#ec4899,#25D366);background-size:300% 100%;animation:gradientSlide 3s linear infinite, btnPulse 2s ease-in-out infinite;box-shadow:0 0 20px rgba(37,211,102,.5);transition:transform .2s}
+#submit:hover{transform:translateY(-2px)}
+#submit:disabled{opacity:.6;cursor:not-allowed}
+@keyframes btnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+
+/* ===== CODE BOX + ADVANCED SPINNING ===== */
+#pair-result{margin-top:16px}
+.result-box{padding:20px;border-radius:14px;text-align:center;background:rgba(0,0,0,.55);border:1px solid rgba(37,211,102,.35);min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:border-color .6s, box-shadow .6s}
+body.phase-code .result-box{border-color:rgba(0,229,255,.7);box-shadow:0 0 20px rgba(0,229,255,.35)}
+body.phase-waiting .result-box{border-color:rgba(236,72,153,.7);box-shadow:0 0 20px rgba(236,72,153,.35)}
+body.phase-success .result-box{border-color:rgba(255,215,0,.8);box-shadow:0 0 22px rgba(255,215,0,.45)}
+.result-title{font-family:"Orbitron",sans-serif;font-size:.68rem;letter-spacing:2px;color:var(--green)}
+.pairing-code{font-family:"Orbitron",sans-serif;font-size:1.9rem;font-weight:900;letter-spacing:4px;margin:6px 0;background:linear-gradient(90deg,#25D366,#00e5ff,#fff,#ec4899,#25D366);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 2s linear infinite;filter:drop-shadow(0 0 12px rgba(37,211,102,.5))}
+
+/* Advanced Spinner - 3 rings */
+.spinner-wrap{position:relative;width:88px;height:88px;margin:6px auto}
+.spinner-ring{position:absolute;inset:0;border-radius:50%;border:4px solid transparent}
+.spinner-ring.r1{border-top-color:#25D366;border-right-color:#00e5ff;animation:rotate .9s linear infinite}
+.spinner-ring.r2{inset:12px;border-bottom-color:#a855f7;border-left-color:#ec4899;animation:rotateRev 1.2s linear infinite}
+.spinner-ring.r3{inset:24px;border-top-color:#facc15;border-bottom-color:#25D366;animation:rotate 1.6s linear infinite}
+.spinner-core{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.spinner-text{font-family:"Orbitron",sans-serif;font-size:.70rem;letter-spacing:1.5px;color:#aaa;animation:loadingPulse 1.2s infinite;text-align:center;line-height:1.5}
+@keyframes loadingPulse{50%{opacity:.4}}
+.spinner-sub{font-size:.68rem;color:#888;margin-top:2px}
+
+/* Session box */
+.session-box{margin-top:12px;width:100%;padding:12px;border-radius:10px;background:#000;border:1px dashed rgba(255,215,0,.6)}
+.session-label{font-size:.65rem;letter-spacing:2px;color:#ffd27a;margin-bottom:6px}
+.session-id{font-family:monospace;font-size:.68rem;color:#00ff66;word-break:break-all;line-height:1.5}
+.copy-button{margin-top:10px;padding:10px 22px;border-radius:10px;border:1px solid var(--green);background:transparent;color:var(--green);font-family:"Orbitron",sans-serif;font-weight:800;font-size:.75rem;cursor:pointer;letter-spacing:1px}
+.copy-button:hover{background:linear-gradient(90deg,#25D366,#00e5ff);color:#001408}
+
+/* ===== LOG BOX ===== */
+.log-box{margin-top:16px;border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(37,211,102,.35);text-align:left}
+.log-header{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:linear-gradient(90deg, rgba(37,211,102,.15), rgba(0,229,255,.12));border-bottom:1px solid rgba(37,211,102,.25);font-family:"Orbitron",sans-serif;font-size:.65rem;letter-spacing:1.5px;color:#aaa}
+.log-header .dot{width:8px;height:8px;border-radius:50%;background:#ff536f;display:inline-block;margin-right:4px}
+.log-header .dot.y{background:#facc15}.log-header .dot.g{background:#25D366}
+.log-body{padding:12px 13px;max-height:190px;overflow-y:auto;font-family:"JetBrains Mono",monospace;font-size:.72rem;line-height:1.7;color:#aab4b0}
+.log-line{margin:3px 0;word-break:break-word;animation:logIn .3s ease}
+@keyframes logIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.log-line .time{color:#555;margin-right:6px}
+.log-line.info{color:#aab4b0}
+.log-line.success{color:#25D366}
+.log-line.code{color:#00e5ff;font-weight:700}
+.log-line.wait{color:#ec4899}
+.log-line.gold{color:#ffd700;font-weight:700}
+.log-line.error{color:#ff536f}
+
+/* INSTRUCTIONS */
+.instructions{margin-top:20px}
+.instructions-title{font-family:"Orbitron",sans-serif;font-size:.84rem;font-weight:800;letter-spacing:1px;margin-bottom:11px;background:linear-gradient(90deg,#25D366,#00e5ff,#fff,#25D366);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 4s linear infinite}
+.step{display:flex;gap:10px;padding:11px 13px;margin-bottom:8px;border-radius:10px;background:linear-gradient(90deg, rgba(37,211,102,.06), rgba(0,229,255,.03), transparent);background-size:200% 100%;animation:pillFlow 6s ease-in-out infinite;border-left:3px solid var(--green);font-size:.87rem;line-height:1.6;color:#c9d4cd}
+.step:hover{transform:translateX(5px)}
+.step-number{font-family:"Orbitron",sans-serif;font-weight:900;background:linear-gradient(90deg,#25D366,#00e5ff,#ec4899,#25D366);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 3s linear infinite}
+.contact-owner{display:block;text-align:center;margin:15px 0 11px;padding:12px;border-radius:12px;text-decoration:none;font-family:"Orbitron",sans-serif;font-weight:800;font-size:.78rem;letter-spacing:1px;color:var(--green);border:1px solid var(--green)}
+.contact-owner:hover{background:linear-gradient(90deg,#25D366,#00e5ff,#a855f7,#25D366);background-size:300% 100%;animation:gradientSlide 2s linear infinite;color:#001408}
+.warning{padding:11px;border-radius:10px;font-size:.81rem;line-height:1.6;text-align:center;color:#ffd27a;background:linear-gradient(90deg, rgba(255,170,0,.08), rgba(255,80,80,.05), rgba(255,170,0,.08));background-size:200% 100%;animation:pillFlow 5s ease-in-out infinite;border:1px solid rgba(255,170,0,.4)}
+footer{text-align:center;padding:18px;font-size:.82rem;color:#888;line-height:1.7;position:relative;overflow:hidden;border-top:1px solid rgba(37,211,102,.25)}
+footer strong{background:linear-gradient(90deg,#25D366,#00e5ff,#ec4899,#25D366);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shineText 3s linear infinite}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);z-index:2000;background:linear-gradient(90deg,#25D366,#00e5ff);color:#001408;font-weight:700;font-size:.85rem;padding:12px 20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .3s;opacity:0;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:480px){header{padding:0 12px}.logo-text{font-size:.72rem}.system-status{font-size:.58rem;padding:6px 10px}main{padding-top:82px}.bot-ring{width:130px;height:130px}.pairing-code{font-size:1.4rem}}
+</style>
+</head>
+<body>
+<div id="particles-js"></div>
+<div class="cyber-grid"></div>
+
+<header>
+  <div class="header-left">
+    <img class="header-logo" src="/bot-image.jpg" alt="ETIAS" onerror="this.style.display='none'">
+    <div class="logo-text">ETIAS-AI</div>
+  </div>
+  <div class="system-status"><span class="system-dot"></span><span id="phaseLabel">IDLE</span></div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="bot-ring"><img class="bot-image" src="/bot-image.jpg" alt="ETIAS-AI" onerror="this.style.display='none'"></div>
+    <div class="hero-title">ETIAS-AI</div>
+    <div class="hero-subtitle">WHATSAPP MULTI-DEVICE</div>
+  </section>
+
+  <section class="stats">
+    <div class="stat-pill"><span>👥</span><span>TOTAL: <strong id="total-users">0</strong></span></div>
+    <div class="stat-pill"><span class="live-dot"></span><span>ONLINE: <strong id="online-users">0</strong></span></div>
+  </section>
+
+  <section class="pair-card">
+    <div class="card-title">PAIR CODE</div>
+    <div class="card-version"><span>V2 ULTRA</span></div>
+    <div class="card-description">Enter your WhatsApp number with country code. <b>Without +</b></div>
+    <div class="example">Example: <span class="example-code">2637XXXXXXXX</span></div>
+
+    <div class="input-wrapper">
+      <input id="number" type="tel" inputmode="numeric" autocomplete="tel" placeholder="2637XXXXXXXX">
+    </div>
+
+    <button id="submit" type="button">GENERATE CODE</button>
+
+    <!-- CODE BOX - SPINNING APPEARS HERE -->
+    <div id="pair-result">
+      <div class="result-box">
+        <div class="result-title" style="color:#59635f;font-size:10px">YOUR PAIRING CODE WILL APPEAR HERE</div>
+      </div>
+    </div>
+
+    <!-- LOG BOX -->
+    <div class="log-box">
+      <div class="log-header">
+        <span><span class="dot"></span><span class="dot y"></span><span class="dot g"></span> &nbsp; TERMINAL LOGS</span>
+        <span id="logStatus" style="color:#25D366">● LIVE</span>
+      </div>
+      <div id="logBody" class="log-body">
+        <div class="log-line info"><span class="time">[--:--:--]</span> ETIAS-AI Pair System Ready...</div>
+        <div class="log-line info"><span class="time">[--:--:--]</span> Waiting for phone number...</div>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <div class="instructions-title">📱 HOW TO CONNECT</div>
+      <div class="step"><div class="step-number">1.</div><div>Enter your WhatsApp number above (without +).</div></div>
+      <div class="step"><div class="step-number">2.</div><div>Press <strong>GENERATE CODE.</strong></div></div>
+      <div class="step"><div class="step-number">3.</div><div>Open WhatsApp and go to <strong>Linked Devices.</strong></div></div>
+      <div class="step"><div class="step-number">4.</div><div>Select <strong>Link with phone number.</strong></div></div>
+      <div class="step"><div class="step-number">5.</div><div>Enter the pairing code shown above.</div></div>
+      <div class="step"><div class="step-number">6.</div><div>After linking, your <strong>SESSION_ID</strong> will be sent to your WhatsApp + <strong>creds.json</strong> file.</div></div>
+      <a href="/owner" class="contact-owner"><span>◉</span> CONTACT OWNER</a>
+      <div class="warning">⚠️ Keep your SESSION_ID private. Do not publish authentication data publicly.</div>
+    </div>
+  </section>
+</main>
+
+<footer>ETIAS-AI © 2026<br>POWERED BY <strong>ETIAS TECH</strong></footer>
+<div id="toast" class="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+const API_BASE = window.location.origin;
+let currentPairingId = null;
+let currentSessionId = null;
+let statusTimer = null;
+
+const numberInput = document.getElementById("number");
+const submitButton = document.getElementById("submit");
+const pairResult = document.getElementById("pair-result");
+const totalUsersElement = document.getElementById("total-users");
+const onlineUsersElement = document.getElementById("online-users");
+const toast = document.getElementById("toast");
+const logBody = document.getElementById("logBody");
+const phaseLabel = document.getElementById("phaseLabel");
+
+/* ========== PHASE / COLOR SYSTEM ========== */
+function setPhase(phase){
+  document.body.classList.remove('phase-code','phase-waiting','phase-success');
+  if(phase==='code'){ document.body.classList.add('phase-code'); phaseLabel.textContent='CODE READY'; phaseLabel.style.color='#00e5ff'; }
+  if(phase==='waiting'){ document.body.classList.add('phase-waiting'); phaseLabel.textContent='WAITING LINK'; phaseLabel.style.color='#ec4899'; }
+  if(phase==='success'){ document.body.classList.add('phase-success'); phaseLabel.textContent='CONNECTED ✓'; phaseLabel.style.color='#ffd700'; }
+  if(phase==='idle'){ phaseLabel.textContent='IDLE'; phaseLabel.style.color='#ffd27a'; }
+  if(phase==='loading'){ phaseLabel.textContent='LOADING...'; phaseLabel.style.color='#25D366'; }
+}
+
+/* ========== LOG BOX ========== */
+function addLog(msg, type='info'){
+  const time = new Date().toLocaleTimeString('en-GB');
+  const div = document.createElement('div');
+  div.className = 'log-line ' + type;
+  div.innerHTML = `<span class="time">[${time}]</span> ${msg}`;
+  logBody.appendChild(div);
+  logBody.scrollTop = logBody.scrollHeight;
+  // Keep max 60 lines
+  while(logBody.children.length > 60) logBody.removeChild(logBody.firstChild);
+}
+function clearLogs(){
+  logBody.innerHTML = '';
+  addLog('ETIAS-AI Pair System Ready...', 'info');
+}
+
+/* ========== TOAST ========== */
+function showToast(m){ toast.textContent=m; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),3000); }
+function cleanNumber(n){ return String(n||'').replace(/\D/g,''); }
+
+/* ========== SPINNERS ========== */
+function showAdvancedSpinner(title, sub, emoji='🤖'){
+  pairResult.innerHTML = `
+    <div class="result-box">
+      <div class="spinner-wrap">
+        <div class="spinner-ring r1"></div>
+        <div class="spinner-ring r2"></div>
+        <div class="spinner-ring r3"></div>
+        <div class="spinner-core">${emoji}</div>
+      </div>
+      <div class="spinner-text">${title}</div>
+      <div class="spinner-sub">${sub}</div>
+    </div>`;
+}
+function showPairingCode(code){
+  const formatted = String(code).replace(/\s+/g,'').toUpperCase();
+  pairResult.innerHTML = `
+    <div class="result-box">
+      <div class="result-title">WHATSAPP PAIRING CODE</div>
+      <div class="pairing-code">${formatted}</div>
+      <button id="copy-code" class="copy-button" type="button">COPY CODE</button>
+      <div class="spinner-sub" style="color:#ec4899">⏳ Waiting for you to link... Generating SESSION_ID...</div>
+    </div>`;
+  const btn = document.getElementById('copy-code');
+  if(btn) btn.addEventListener('click', async ()=>{
+    try{ await navigator.clipboard.writeText(formatted); btn.textContent='COPIED ✓'; showToast('Pairing code copied.'); setTimeout(()=>btn.textContent='COPY CODE',2000); }
+    catch{ showToast('Copy failed. Long press the code.'); }
+  });
+}
+function showMessage(msg, type='info'){
+  const color = type==='error' ? '#ff536f' : '#25df69';
+  pairResult.innerHTML = `<div class="result-box" style="border-color:${color}55"><div class="result-title" style="color:${color}">${type==='error'?'ERROR':'STATUS'}</div><div style="color:#aab4b0;font-size:11px;line-height:1.7">${msg}</div></div>`;
+}
+
+/* ========== REQUEST CODE ========== */
+async function requestPairCode(){
+  const number = cleanNumber(numberInput.value);
+  if(!number){ showToast('Enter your WhatsApp number.'); numberInput.focus(); return; }
+  if(number.length < 8){ showToast('Enter a valid WhatsApp number.'); return; }
+  if(statusTimer){ clearInterval(statusTimer); statusTimer=null; }
+  currentPairingId=null; currentSessionId=null;
+  clearLogs();
+  setPhase('loading');
+  submitButton.disabled=true; submitButton.textContent='GENERATING...';
+
+  addLog(`📱 Number entered: +${number}`, 'info');
+  addLog('🔌 Connecting to WhatsApp servers...', 'info');
+  addLog('⚙️ Creating secure session...', 'info');
+
+  // PHASE 1: SPINNING IN CODE BOX
+  showAdvancedSpinner('GENERATING PAIR CODE', 'Please wait... Connecting to WhatsApp', '🔑');
+
+  try{
+    addLog('📡 Sending request to /code...', 'info');
+    const response = await fetch(`${API_BASE}/code?number=${encodeURIComponent(number)}`, { method:'GET', cache:'no-store' });
+    const data = await response.json();
+    console.log('[PAIR]', data);
+
+    if(!response.ok || data.success===false) throw new Error(data.message || data.error || 'Unable to start pairing.');
+
+    currentPairingId = data.pairingId || data.id || null;
+    currentSessionId = data.sessionId || null;
+    addLog(`✅ Session created: ${currentPairingId?.slice(0,8)}...`, 'success');
+
+    if(data.pairingCode || data.code){
+      const code = data.pairingCode || data.code;
+      // PHASE 2: CODE GENERATED -> CHANGE WHOLE BACKGROUND COLOR
+      setPhase('code');
+      addLog(`🔑 PAIR CODE GENERATED: ${code}`, 'code');
+      addLog('📲 Open WhatsApp > Linked Devices > Link with phone number', 'info');
+      addLog('⌛ Waiting for you to enter code...', 'wait');
+      showPairingCode(code);
+
+      // PHASE 3: NEW SPINNING FOR SESSION_ID (after 2.5s show waiting spinner below code)
+      setTimeout(()=>{
+        if(document.getElementById('copy-code')){
+          // Keep code visible, add waiting spinner inside same box
+          const box = pairResult.querySelector('.result-box');
+          const waitDiv = document.createElement('div');
+          waitDiv.id='session-wait';
+          waitDiv.innerHTML = `
+            <div class="spinner-wrap" style="width:64px;height:64px;margin-top:12px">
+              <div class="spinner-ring r1"></div>
+              <div class="spinner-ring r2"></div>
+              <div class="spinner-ring r3"></div>
+              <div class="spinner-core">⏳</div>
+            </div>
+            <div class="spinner-text" style="color:#ec4899">GENERATING SESSION_ID...</div>
+            <div class="spinner-sub">Waiting for you to link in WhatsApp</div>`;
+          box.appendChild(waitDiv);
+          setPhase('waiting');
+          addLog('🔄 Started generating SESSION_ID...', 'wait');
+          addLog('⏳ Waiting for WhatsApp link...', 'wait');
+        }
+      }, 1800);
+
+      submitButton.textContent='CODE SENT ✓';
+      startStatusPolling();
+      return;
+    }
+
+    if(currentPairingId){
+      addLog('⏳ Code not ready yet, polling...', 'wait');
+      showAdvancedSpinner('GENERATING PAIR CODE', 'Still working...', '🔑');
+      startStatusPolling();
+      return;
+    }
+
+    showMessage(data.message || 'Pairing started. Please wait.', 'info');
+  }catch(e){
+    console.error(e);
+    addLog(`❌ Error: ${e.message}`, 'error');
+    setPhase('idle');
+    showMessage(e.message || 'Failed to generate pairing code.', 'error');
+    submitButton.disabled=false; submitButton.textContent='GENERATE CODE';
+  }
+}
+
+/* ========== POLLING ========== */
+function startStatusPolling(){
+  if(!currentPairingId) return;
+  let attempts=0;
+  const maxAttempts=60;
+  statusTimer=setInterval(async ()=>{
+    attempts++;
+    if(attempts>maxAttempts){
+      clearInterval(statusTimer); statusTimer=null;
+      addLog('⏰ Timeout - please try again', 'error');
+      showMessage('Pairing timed out. Please try again.', 'error');
+      submitButton.disabled=false; submitButton.textContent='GENERATE CODE';
+      return;
+    }
+    try{
+      const res = await fetch(`${API_BASE}/status/${encodeURIComponent(currentPairingId)}`, { cache:'no-store' });
+      if(!res.ok) return;
+      const data = await res.json();
+
+      if(data.sessionId) currentSessionId=data.sessionId;
+
+      // If code arrives via polling
+      if((data.pairingCode || data.code) && !document.getElementById('copy-code')){
+        const code = data.pairingCode || data.code;
+        setPhase('code');
+        addLog(`🔑 PAIR CODE GENERATED: ${code}`, 'code');
+        showPairingCode(code);
+        setTimeout(()=>{ setPhase('waiting'); addLog('🔄 Generating SESSION_ID...', 'wait'); }, 1800);
+        return;
+      }
+
+      // CONNECTED -> SUCCESS -> CHANGE COLOR AGAIN
+      if(data.connected===true || data.status==='connected'){
+        clearInterval(statusTimer); statusTimer=null;
+        setPhase('success');
+        addLog('✅ WhatsApp CONNECTED!', 'success');
+        addLog('🔑 SESSION_ID generated successfully!', 'gold');
+        addLog('📩 Sending SESSION_ID to your WhatsApp...', 'gold');
+        addLog('📄 Sending creds.json backup file...', 'gold');
+        addLog('🎉 DONE! Check your WhatsApp DM for SESSION_ID + creds.json', 'gold');
+
+        pairResult.innerHTML = `
+          <div class="result-box">
+            <div style="font-size:3rem">✅</div>
+            <div class="result-title" style="color:#ffd700">WHATSAPP CONNECTED!</div>
+            <div style="color:#aab4b0;font-size:12px;line-height:1.7;text-align:center">
+              Your <b style="color:#fff">SESSION_ID</b> has been sent to your WhatsApp.<br>
+              + <b style="color:#fff">creds.json</b> file as backup.<br><br>
+              <b style="color:#ffd700">Check your WhatsApp DM now!</b>
+            </div>
+            <button class="copy-button" onclick="location.reload()">PAIR ANOTHER NUMBER</button>
+          </div>`;
+        submitButton.disabled=false; submitButton.textContent='GENERATE CODE';
+        showToast('Connected! Check your WhatsApp for SESSION_ID');
+        return;
+      }
+
+      if(data.error){
+        clearInterval(statusTimer); statusTimer=null;
+        addLog(`❌ ${data.error}`, 'error');
+        showMessage(data.error, 'error');
+        submitButton.disabled=false; submitButton.textContent='GENERATE CODE';
+      }
+    }catch(e){ console.warn('[POLL]', e); }
+  }, 1500);
+}
+
+/* ========== STATS ========== */
+async function updateTotalUsers(){
+  try{
+    const r=await fetch(`${API_BASE}/total-users`,{cache:'no-store'}); if(!r.ok) throw new Error('fail');
+    const d=await r.json(); let t=d.totalUsers??d.total??d.users??0; totalUsersElement.textContent=Number(t).toLocaleString();
+  }catch{}
+}
+async function updateOnlineUsers(){
+  try{
+    const r=await fetch(`${API_BASE}/deploy-stats`,{cache:'no-store'}); if(!r.ok) throw new Error('fail');
+    const d=await r.json(); let o=d.onlineUsers??d.online??0; onlineUsersElement.textContent=Number(o).toLocaleString();
+  }catch{}
+}
+
+/* ========== EVENTS ========== */
+numberInput.addEventListener('input', function(){ this.value=this.value.replace(/\D/g,''); });
+numberInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); requestPairCode(); } });
+submitButton.addEventListener('click', requestPairCode);
+updateTotalUsers(); updateOnlineUsers();
+setInterval(()=>{ updateTotalUsers(); updateOnlineUsers(); }, 10000);
+window.addEventListener('load', ()=>{ updateTotalUsers(); updateOnlineUsers(); });
+
+/* ========== PARTICLES - ADVANCED COLOR ========== */
+if(window.particlesJS){
+  particlesJS('particles-js',{
+    particles:{
+      number:{value:58,density:{enable:true,value_area:850}},
+      color:{value:["#25D366","#00e5ff","#a855f7","#ec4899","#facc15"]},
+      shape:{type:"circle"},
+      opacity:{value:.45,random:true,anim:{enable:true,speed:1.2,opacity_min:.08,sync:false}},
+      size:{value:3.2,random:true,anim:{enable:true,speed:2,size_min:.5,sync:false}},
+      line_linked:{enable:true,distance:145,color:"#25D366",opacity:.22,width:1},
+      move:{enable:true,speed:1.5,direction:"none",random:true,out_mode:"out",attract:{enable:true,rotateX:600,rotateY:1200}}
+    },
+    interactivity:{detect_on:"canvas",events:{onhover:{enable:true,mode:"grab"},onclick:{enable:true,mode:"push"},resize:true},modes:{grab:{distance:145,line_linked:{opacity:.6}},push:{particles_nb:4}}},
+    retina_detect:true
+  });
+}
+</script>
+</body>
+</html>

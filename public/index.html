@@ -1,0 +1,889 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#25D366"><title>ETIAS-AI | Session Generator</title><link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --green: #25D366;
+    --green-dark: #128C7E;
+    --green-light: #65ff9b;
+    --cyan: #00e5ff;
+    --purple: #a855f7;
+    --pink: #ec4899;
+    --yellow: #facc15;
+    --black: #020403;
+    --dark: #07100b;
+    --card: rgba(7, 18, 12, 0.88);
+    --border: rgba(37, 211, 102, 0.65);
+    --text: #eafff0;
+    --muted: #9aa9a0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #020403;
+    color: var(--text);
+    font-family: "Montserrat", sans-serif;
+    position: relative;
+}
+
+/* ===== ADVANCED ANIMATED BACKGROUND ===== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(37,211,102,.28) 0%, transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(0,229,255,.22) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(168,85,247,.20) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236,72,153,.18) 0%, transparent 45%),
+        linear-gradient(135deg, #020403, #04160a, #02181a, #0a0418, #020403);
+    background-size: 200% 200%;
+    animation: bgFlow 18s ease-in-out infinite alternate;
+}
+@keyframes bgFlow {
+    0% { background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 0% 0%; filter: hue-rotate(0deg); }
+    50% { background-position: 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%; filter: hue-rotate(45deg); }
+    100% { background-position: 100% 100%, 0% 100%, 100% 0%, 0% 0%, 100% 100%; filter: hue-rotate(90deg); }
+}
+
+/* Floating orbs */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    pointer-events: none;
+    background:
+        radial-gradient(circle 120px at 15% 25%, rgba(37,211,102,.35), transparent 70%),
+        radial-gradient(circle 100px at 85% 65%, rgba(0,229,255,.30), transparent 70%),
+        radial-gradient(circle 90px at 50% 90%, rgba(236,72,153,.25), transparent 70%);
+    animation: orbFloat 10s ease-in-out infinite alternate;
+    filter: blur(2px);
+}
+@keyframes orbFloat {
+    0% { transform: translate(0,0) scale(1); opacity:.8; }
+    100% { transform: translate(30px,-30px) scale(1.15); opacity:1; }
+}
+
+/* PARTICLES */
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+}
+
+/* GRID - now color shifting */
+.cyber-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(37,211,102,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,211,102,.06) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 35s linear infinite, gridHue 12s linear infinite;
+}
+@keyframes gridMove {
+    from { transform: translate(0,0); }
+    to { transform: translate(-50px,-50px); }
+}
+@keyframes gridHue {
+    0% { filter: hue-rotate(0deg); opacity:.8; }
+    50% { filter: hue-rotate(180deg); opacity:1; }
+    100% { filter: hue-rotate(360deg); opacity:.8; }
+}
+
+/* TOP NAV - animated gradient border */
+.news-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 58px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background: rgba(2,8,4,.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, #25D366, #00e5ff, #a855f7, #ec4899, #25D366) 1;
+    animation: borderFlow 6s linear infinite;
+    box-shadow: 0 0 25px rgba(37,211,102,.35), 0 0 45px rgba(0,229,255,.15);
+}
+@keyframes borderFlow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.news-container .title {
+    flex: 0 0 280px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #a855f7, #ec4899, #25D366);
+    background-size: 300% 100%;
+    animation: gradientSlide 5s linear infinite;
+    color: #001b08;
+    font-family: "Orbitron", sans-serif;
+    font-size: .95rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%);
+}
+@keyframes gradientSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+.ticker { flex: 1; overflow: hidden; white-space: nowrap; }
+.ticker-track { display: inline-flex; min-width: max-content; animation: ticker 28s linear infinite; }
+.ticker-item {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 0 30px;
+    font-family: "Orbitron", sans-serif;
+    font-size: .85rem; font-weight: 700;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #fff, #ec4899, #25D366);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shineText 4s linear infinite;
+}
+.ticker-item span { color: #fff; -webkit-text-fill-color: #fff; }
+@keyframes ticker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+@keyframes shineText { to { background-position: 300% center; } }
+
+/* MAIN */
+.container {
+    width: min(1200px, 94%);
+    margin: 0 auto;
+    padding: 95px 0 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 28px;
+}
+
+/* PROFILE - advanced rainbow conic + hue rotate */
+.profile-section { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.profile-container {
+    width: 180px; height: 180px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    animation: floating 5s ease-in-out infinite;
+}
+.profile-border {
+    position: absolute; inset: -9px; border-radius: 50%;
+    background: conic-gradient(from 0deg, #25D366, #00e5ff, #a855f7, #ec4899, #facc15, #25D366);
+    animation: rotate 3s linear infinite, borderPulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 25px rgba(37,211,102,.7), 0 0 60px rgba(0,229,255,.35), 0 0 90px rgba(168,85,247,.25);
+}
+@keyframes borderPulse {
+    0%,100% { box-shadow: 0 0 25px rgba(37,211,102,.7), 0 0 60px rgba(0,229,255,.3); }
+    50% { box-shadow: 0 0 35px rgba(236,72,153,.8), 0 0 80px rgba(168,85,247,.5); }
+}
+.profile-border::after { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--black); }
+.profile-image {
+    width: 100%; height: 100%; position: relative; z-index: 2;
+    object-fit: cover; border-radius: 50%; border: 3px solid var(--green); background: #050805;
+    box-shadow: 0 0 25px rgba(37,211,102,.8), inset 0 0 30px rgba(37,211,102,.2);
+    animation: imgHue 8s linear infinite;
+}
+@keyframes imgHue { 0% { filter: hue-rotate(0deg) saturate(1); } 50% { filter: hue-rotate(15deg) saturate(1.2); } 100% { filter: hue-rotate(0deg) saturate(1); } }
+@keyframes floating { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+/* STATS - animated gradient pills */
+.stats-bar { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.stat-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 17px; border-radius: 30px;
+    background: linear-gradient(135deg, rgba(37,211,102,.15), rgba(0,229,255,.15), rgba(168,85,247,.15));
+    background-size: 200% 200%;
+    animation: pillFlow 4s ease-in-out infinite;
+    border: 1px solid rgba(37,211,102,.5);
+    color: var(--text);
+    font-family: "Orbitron", sans-serif; font-size: .78rem;
+    box-shadow: 0 0 15px rgba(37,211,102,.25);
+}
+@keyframes pillFlow { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+.stat-pill i { color: var(--green); animation: iconColor 5s linear infinite; }
+@keyframes iconColor { 0% { color:#25D366; } 33% { color:#00e5ff; } 66% { color:#ec4899; } 100% { color:#25D366; } }
+.live-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #00ff66; box-shadow: 0 0 8px #00ff66, 0 0 16px #00ff66;
+    animation: pulse 1.4s infinite, dotColor 3s linear infinite;
+}
+@keyframes dotColor { 0% { background:#00ff66; box-shadow:0 0 8px #00ff66; } 50% { background:#00e5ff; box-shadow:0 0 12px #00e5ff; } 100% { background:#00ff66; box-shadow:0 0 8px #00ff66; } }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+
+/* HERO - animated gradient border + shine */
+.hero {
+    width: 100%; padding: 48px 30px; text-align: center;
+    background: linear-gradient(135deg, rgba(7,18,12,.92), rgba(4,22,18,.92), rgba(10,4,24,.92));
+    background-size: 300% 300%;
+    animation: heroBg 10s ease-in-out infinite;
+    border: 1px solid var(--border); border-radius: 22px; backdrop-filter: blur(14px);
+    box-shadow: 0 0 45px rgba(37,211,102,.25), inset 0 0 40px rgba(37,211,102,.08);
+    position: relative; overflow: hidden;
+}
+.hero::before {
+    content: ""; position: absolute; inset: -2px; border-radius: 22px; padding: 2px;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #a855f7, #ec4899, #facc15, #25D366);
+    background-size: 300% 100%; animation: gradientSlide 4s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+}
+@keyframes heroBg { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+.hero h1 {
+    margin-bottom: 15px; font-family: "Orbitron", sans-serif;
+    font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 900; letter-spacing: 3px;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #fff, #a855f7, #ec4899, #facc15, #25D366);
+    background-size: 300% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    filter: drop-shadow(0 0 18px rgba(37,211,102,.45));
+}
+@keyframes shine { to { background-position: 300% center; } }
+.hero p { max-width: 760px; margin: auto; color: #b8c5bd; font-size: 1.05rem; line-height: 1.7; }
+.badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px; padding: 8px 18px; border-radius: 30px;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #a855f7, #ec4899, #25D366);
+    background-size: 300% 100%; animation: gradientSlide 4s linear infinite, badgePulse 2s ease-in-out infinite;
+    color: #001a08; font-family: "Orbitron", sans-serif; font-size: .75rem; font-weight: 900; letter-spacing: 1px;
+    box-shadow: 0 0 20px rgba(37,211,102,.55), 0 0 35px rgba(0,229,255,.25);
+}
+@keyframes badgePulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+/* FEATURES */
+.features { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+.feature-card {
+    position: relative; overflow: hidden; padding: 32px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; backdrop-filter: blur(12px);
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.feature-card::before {
+    content: ""; position: absolute; width: 150px; height: 150px; top: -80px; right: -80px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,211,102,.18), rgba(0,229,255,.12), transparent);
+    animation: glowMove 6s ease-in-out infinite alternate;
+}
+@keyframes glowMove { 0% { transform: translate(0,0) scale(1); opacity:.7; } 100% { transform: translate(-20px,20px) scale(1.4); opacity:1; } }
+.feature-card::after {
+    content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 1px;
+    background: linear-gradient(135deg, transparent, rgba(37,211,102,.5), transparent, rgba(0,229,255,.5), transparent);
+    background-size: 300% 300%; animation: heroBg 6s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: 0; transition: opacity .3s;
+}
+.feature-card:hover::after { opacity: 1; }
+.feature-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--green);
+    box-shadow: 0 18px 45px rgba(37,211,102,.25), 0 0 30px rgba(0,229,255,.18);
+}
+.feature-card .icon {
+    width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+    border: 1px solid var(--green); border-radius: 18px; color: var(--green); font-size: 2rem;
+    background: linear-gradient(135deg, rgba(37,211,102,.12), rgba(0,229,255,.12), rgba(168,85,247,.12));
+    background-size: 200% 200%; animation: pillFlow 4s ease-in-out infinite, iconFloat 3s ease-in-out infinite;
+    box-shadow: 0 0 25px rgba(37,211,102,.2);
+}
+@keyframes iconFloat { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-4px) rotate(2deg); } }
+.feature-card h3 {
+    margin-bottom: 12px; color: var(--green); font-family: "Orbitron", sans-serif; font-size: 1.4rem;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #ec4899, #25D366); background-size: 200% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 3s linear infinite;
+}
+.feature-card p { flex: 1; margin-bottom: 25px; color: var(--muted); font-size: .95rem; line-height: 1.7; }
+
+/* BUTTON - animated gradient */
+.btn {
+    width: 100%; padding: 14px 20px; border: 1px solid var(--green); border-radius: 12px;
+    background: transparent; color: var(--green);
+    font-family: "Orbitron", sans-serif; font-size: .9rem; font-weight: 800; letter-spacing: 1px;
+    cursor: pointer; transition: all .3s ease; position: relative; overflow: hidden;
+}
+.btn::before {
+    content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+    transition: left .5s;
+}
+.btn:hover::before { left: 100%; }
+.btn:hover {
+    background: linear-gradient(90deg, #25D366, #00e5ff, #a855f7, #25D366);
+    background-size: 300% 100%; animation: gradientSlide 2s linear infinite;
+    color: #001408; box-shadow: 0 0 25px rgba(37,211,102,.65), 0 0 40px rgba(0,229,255,.3);
+    transform: translateY(-2px);
+}
+.btn i { margin-right: 7px; }
+
+/* HOW IT WORKS */
+.about {
+    width: 100%; padding: 38px 30px; text-align: center;
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; backdrop-filter: blur(12px);
+    position: relative; overflow: hidden;
+}
+.about::before {
+    content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 1px;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #ec4899, #25D366); background-size: 300% 100%;
+    animation: gradientSlide 5s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+}
+.about h2 {
+    margin-bottom: 22px; color: var(--green); font-family: "Orbitron", sans-serif; font-size: clamp(1.5rem, 4vw, 2.2rem);
+    background: linear-gradient(90deg, #25D366, #00e5ff, #fff, #25D366); background-size: 200% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 4s linear infinite;
+}
+.steps { max-width: 850px; margin: auto; display: grid; gap: 13px; }
+.step {
+    padding: 14px 18px; border-left: 3px solid var(--green);
+    background: linear-gradient(90deg, rgba(37,211,102,.06), rgba(0,229,255,.03), transparent);
+    background-size: 200% 100%; animation: pillFlow 6s ease-in-out infinite;
+    color: #c9d4cd; text-align: left; line-height: 1.6; border-radius: 0 10px 10px 0;
+    transition: transform .3s;
+}
+.step:hover { transform: translateX(6px); border-left-color: #00e5ff; }
+.step strong { color: #fff; }
+.session-example {
+    margin: 20px auto; max-width: 700px; padding: 15px;
+    border: 1px dashed rgba(37,211,102,.6); border-radius: 10px; background: rgba(0,0,0,.55);
+    color: var(--green); font-family: monospace; word-break: break-all;
+    animation: sessionGlow 3s ease-in-out infinite;
+}
+@keyframes sessionGlow {
+    0%,100% { box-shadow: 0 0 0 rgba(37,211,102,0); border-color: rgba(37,211,102,.6); }
+    50% { box-shadow: 0 0 18px rgba(37,211,102,.35); border-color: #00e5ff; }
+}
+.warning {
+    margin-top: 20px; padding: 14px; border-radius: 10px;
+    background: linear-gradient(90deg, rgba(255,170,0,.08), rgba(255,80,80,.05), rgba(255,170,0,.08));
+    background-size: 200% 100%; animation: pillFlow 5s ease-in-out infinite;
+    border: 1px solid rgba(255,170,0,.4); color: #ffd27a; font-size: .9rem; line-height: 1.6;
+}
+
+/* FOOTER */
+.footer {
+    width: 100%; padding: 30px; text-align: center;
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; color: var(--muted);
+    position: relative; overflow: hidden;
+}
+.footer::before {
+    content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, #25D366, #00e5ff, #ec4899, transparent);
+    animation: footerLine 4s linear infinite;
+}
+@keyframes footerLine { 0% { left: -100%; } 100% { left: 100%; } }
+.footer p { margin: 7px 0; }
+.footer b { color: #fff; }
+.footer .brand {
+    color: var(--green); font-family: "Orbitron", sans-serif; font-weight: 800;
+    background: linear-gradient(90deg, #25D366, #00e5ff, #ec4899, #25D366); background-size: 200% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shineText 3s linear infinite;
+}
+.social-links { margin-top: 18px; display: flex; justify-content: center; gap: 12px; }
+.social-links a {
+    width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--green); border-radius: 50%; color: var(--green); font-size: 1.3rem; text-decoration: none;
+    transition: all .3s ease; position: relative; overflow: hidden;
+}
+.social-links a:hover {
+    background: linear-gradient(135deg, #25D366, #00e5ff); color: #001408; transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 0 20px rgba(37,211,102,.6), 0 0 30px rgba(0,229,255,.3);
+}
+.loading { animation: loadingPulse 1.2s infinite; }
+@keyframes loadingPulse { 50% { opacity: .4; } }
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .news-container { height: 52px; }
+    .news-container .title { flex: 0 0 165px; height: 52px; padding: 0 12px; font-size: .65rem; letter-spacing: 1px; }
+    .ticker-item { padding: 0 18px; font-size: .65rem; }
+    .container { width: 94%; padding-top: 82px; gap: 20px; }
+    .profile-container { width: 145px; height: 145px; }
+    .hero { padding: 35px 18px; }
+    .hero p { font-size: .9rem; }
+    .features { grid-template-columns: 1fr; gap: 18px; }
+    .feature-card { padding: 27px 20px; }
+    .about { padding: 30px 18px; }
+    .footer { padding: 25px 15px; }
+}
+@media (max-width: 430px) {
+    .news-container .title { flex: 0 0 145px; font-size: .58rem; }
+    .ticker-item { font-size: .58rem; padding: 0 12px; }
+    .stats-bar { width: 100%; }
+    .stat-pill { flex: 1; justify-content: center; min-width: 130px; }
+    .hero h1 { font-size: 1.75rem; }
+    .badge { font-size: .62rem; }
+}
+</style></head><body><div id="particles-js"></div>
+<div class="cyber-grid"></div><!-- TOP TICKER --><div class="news-container"><div class="title">
+    🤖 ETIAS-AI
+</div>
+
+<div class="ticker">
+    <div class="ticker-track">
+
+        <div class="ticker-item">
+            ✦ <span>Welcome to ETIAS-AI Session Generator</span>
+        </div>
+
+        <div class="ticker-item">
+            ✦ Get QR Codes & Pairing Codes Instantly
+        </div>
+
+        <div class="ticker-item">
+            ✦ ETIAS TECH • FAST • MODERN
+        </div>
+
+        <div class="ticker-item">
+            ✦ Multi-User Session System
+        </div>
+
+    </div>
+</div>
+
+</div><main class="container"><!-- PROFILE -->
+<section class="profile-section">
+
+    <div class="profile-container">
+
+        <div class="profile-border"></div>
+
+        <img
+            id="botImg"
+            src="/bot-image.jpg"
+            alt="ETIAS-MINI-BOT"
+            class="profile-image"
+        >
+
+    </div>
+
+    <div class="stats-bar">
+
+        <div class="stat-pill">
+            <i class="fas fa-users"></i>
+            Total:
+            <b id="totalUsers">--</b>
+        </div>
+
+        <div class="stat-pill">
+            <div class="live-dot"></div>
+            Online:
+            <b id="onlineUsers">--</b>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- HERO -->
+<section class="hero">
+
+    <h1>ETIAS-AI</h1>
+
+    <p>
+        Generate your WhatsApp session instantly.
+        Choose QR Code or Pair Code, connect your WhatsApp account,
+        and receive your SESSION_ID automatically.
+    </p>
+
+    <div class="badge">
+        <i class="fas fa-bolt"></i>
+        V2 ULTRA • FAST • SECURE
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+
+    <!-- QR -->
+    <article class="feature-card">
+
+        <div class="icon">
+            <i class="fas fa-qrcode"></i>
+        </div>
+
+        <h3>QR CODE</h3>
+
+        <p>
+            Generate a WhatsApp QR code and scan it from
+            WhatsApp → Linked Devices to connect your account.
+        </p>
+
+        <button
+            class="btn"
+            onclick="goTo('/qr.html')"
+        >
+            <i class="fas fa-qrcode"></i>
+            GET QR CODE
+        </button>
+
+    </article>
+
+    <!-- PAIR -->
+    <article class="feature-card">
+
+        <div class="icon">
+            <i class="fas fa-key"></i>
+        </div>
+
+        <h3>PAIR CODE</h3>
+
+        <p>
+            Enter your WhatsApp number and receive an
+            8-character pairing code for linking your device.
+        </p>
+
+        <button
+            class="btn"
+            onclick="goTo('/pair.html')"
+        >
+            <i class="fas fa-key"></i>
+            GET PAIR CODE
+        </button>
+
+    </article>
+
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="about">
+
+    <h2>
+        <i class="fas fa-shield-halved"></i>
+        HOW IT WORKS
+    </h2>
+
+    <div class="steps">
+
+        <div class="step">
+            <strong>01.</strong>
+            Choose <strong>QR Code</strong> or
+            <strong>Pair Code</strong>.
+        </div>
+
+        <div class="step">
+            <strong>02.</strong>
+            Connect your WhatsApp account using the
+            displayed QR code or pairing code.
+        </div>
+
+        <div class="step">
+            <strong>03.</strong>
+            Once connected, the server generates your
+            complete <strong>SESSION_ID</strong>.
+        </div>
+
+        <div class="step">
+            <strong>04.</strong>
+            Your SESSION_ID is sent directly to the
+            connected WhatsApp account.
+        </div>
+
+        <div class="step">
+            <strong>05.</strong>
+            Keep your SESSION_ID private and use it only
+            with software or services you trust.
+        </div>
+
+    </div>
+
+    <div class="session-example">
+        ETIAS-MINI-BOT~...
+    </div>
+
+    <div class="warning">
+        <i class="fas fa-triangle-exclamation"></i>
+
+        <strong> SECURITY NOTICE:</strong><br>
+
+        Your SESSION_ID contains authentication data.
+        Never publish it on websites, GitHub, WhatsApp groups,
+        social media, or send it to people you do not trust.
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <p>
+        © 2026
+        <span class="brand">ETIAS-MINI-BOT</span>
+        | V2 ULTRA
+    </p>
+
+    <p>
+        Built by <b>ETIAS-TECH</b> | Premium Support
+    </p>
+
+    <div class="social-links">
+
+        <a
+            href="https://whatsapp.com/channel/0029VbDMZpsAojYvzfGekJ0m"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp Channel"
+        >
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+    </div>
+
+</footer>
+
+</main><!-- PARTICLES --><script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script><script>
+
+/* ================================
+   NAVIGATION
+================================ */
+
+function goTo(path) {
+    window.location.href = path;
+}
+
+/* ================================
+   PARTICLES - ADVANCED COLOR
+================================ */
+
+if (typeof particlesJS !== "undefined") {
+
+    particlesJS("particles-js", {
+
+        particles: {
+
+            number: {
+                value: 65,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+
+            color: {
+                value: ["#25D366", "#00e5ff", "#a855f7", "#ec4899", "#facc15"]
+            },
+
+            shape: {
+                type: "circle"
+            },
+
+            opacity: {
+                value: 0.55,
+                random: true,
+                anim: { enable: true, speed: 1.2, opacity_min: 0.15, sync: false }
+            },
+
+            size: {
+                value: 3.5,
+                random: true,
+                anim: { enable: true, speed: 2, size_min: 0.5, sync: false }
+            },
+
+            line_linked: {
+                enable: true,
+                distance: 145,
+                color: "#25D366",
+                opacity: 0.25,
+                width: 1
+            },
+
+            move: {
+                enable: true,
+                speed: 1.8,
+                direction: "none",
+                random: true,
+                out_mode: "out",
+                attract: { enable: true, rotateX: 600, rotateY: 1200 }
+            }
+
+        },
+
+        interactivity: {
+
+            detect_on: "canvas",
+
+            events: {
+
+                onhover: {
+                    enable: true,
+                    mode: "grab"
+                },
+
+                onclick: {
+                    enable: true,
+                    mode: "push"
+                },
+
+                resize: true
+
+            },
+
+            modes: {
+
+                grab: {
+                    distance: 140,
+                    line_linked: { opacity: 0.7 }
+                },
+
+                repulse: {
+                    distance: 100,
+                    duration: 0.4
+                },
+
+                push: {
+                    particles_nb: 4
+                }
+
+            }
+
+        },
+
+        retina_detect: true
+
+    });
+
+}
+
+/* ================================
+   BOT IMAGE FALLBACK
+================================ */
+
+const botImg = document.getElementById("botImg");
+
+const fallbacks = [
+    "/media/bot.jpg",
+    "/media/bot_image.png",
+    "/media/bot.jpeg",
+    "/media/bot.webp"
+];
+
+let fallbackIndex = 0;
+
+if (botImg) {
+
+    botImg.addEventListener("error", function () {
+
+        if (fallbackIndex < fallbacks.length) {
+
+            this.src = fallbacks[fallbackIndex];
+
+            fallbackIndex++;
+
+        } else {
+
+            this.style.display = "none";
+
+        }
+
+    });
+
+}
+
+/* ================================
+   USER STATISTICS
+================================ */
+
+async function updateStats() {
+
+    const totalElement =
+        document.getElementById("totalUsers");
+
+    const onlineElement =
+        document.getElementById("onlineUsers");
+
+    try {
+
+        const response = await fetch(
+            "/total-users",
+            {
+                method: "GET",
+                cache: "no-store",
+                headers: {
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "HTTP " + response.status
+            );
+        }
+
+        const data = await response.json();
+
+        const total =
+            Number.isFinite(Number(data.total))
+                ? Number(data.total)
+                : 0;
+
+        const online =
+            Number.isFinite(Number(data.online))
+                ? Number(data.online)
+                : 0;
+
+        totalElement.textContent = total;
+        onlineElement.textContent = online;
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to load user statistics:",
+            error
+        );
+
+        if (totalElement.textContent === "--") {
+            totalElement.textContent = "0";
+        }
+
+        if (onlineElement.textContent === "--") {
+            onlineElement.textContent = "0";
+        }
+
+    }
+
+}
+
+/* Initial statistics */
+updateStats();
+
+/* Refresh every 5 seconds */
+setInterval(
+    updateStats,
+    5000
+);
+
+/* ================================
+   PAGE VISIBILITY
+================================ */
+
+document.addEventListener(
+    "visibilitychange",
+    function () {
+
+        if (!document.hidden) {
+            updateStats();
+        }
+
+    }
+);
+
+</script></body>
+</html>
